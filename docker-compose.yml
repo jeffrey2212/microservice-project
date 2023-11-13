@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  data-reader:
+    build:
+      context: ./data-reader
+      dockerfile: DockerfileDataReader
+    networks:
+      - microservice-network
+
+  compute:
+    build:
+      context: ./compute
+      dockerfile: DockerfileCompute
+    networks:
+      - microservice-network
+    depends_on:
+      - data-reader
+
+  result-formatter:
+    build:
+      context: ./result-formatter
+      dockerfile: DockerfileFormatter
+    networks:
+      - microservice-network
+    depends_on:
+      - compute
+
+networks:
+  microservice-network:
+    driver: bridge
