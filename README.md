@@ -27,7 +27,7 @@ Jeffrey Chan
 ### Setup and Run
 1. Clone the repository:
    ```bash
-   git clone [repository-url]
+   git clone [https://github.com/jeffrey2212/microservice-project]
    ```
 2. Navigate to the project directory:
    ```bash

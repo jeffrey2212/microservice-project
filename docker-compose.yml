@@ -1,30 +1,38 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  data-reader:
+  data-reader-service:
     build:
       context: ./data-reader
       dockerfile: DockerfileDataReader
     networks:
-      - microservice-network
+      microservice-network:
+        aliases:
+          - data-reader-service
 
-  compute:
+  compute-service:
     build:
       context: ./compute
       dockerfile: DockerfileCompute
     networks:
-      - microservice-network
+      microservice-network:
+        aliases:
+          - compute-service
     depends_on:
-      - data-reader
+      - data-reader-service
 
-  result-formatter:
+  result-formatter-service:
     build:
       context: ./result-formatter
       dockerfile: DockerfileFormatter
     networks:
-      - microservice-network
+      microservice-network:
+        aliases:
+          - result-formatter-service
     depends_on:
-      - compute
+      - compute-service
+    ports:
+      - "8000:8082"
 
 networks:
   microservice-network:

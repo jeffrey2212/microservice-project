@@ -12,7 +12,7 @@ def send_data(data, compute_service_url):
     return response.status_code
 
 if __name__ == "__main__":
-    file_path = '/data/Grade Table.xlsx'  # Updated file path
+    file_path = './data/GradeTable.xlsx'  # Updated file path
     data = read_data(file_path)
     compute_service_url = 'http://compute-service:8081/compute' # Example URL
     status = send_data(data, compute_service_url)
