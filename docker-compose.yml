@@ -1,38 +1,35 @@
 version: "3.8"
 
 services:
-  data-reader-service:
-    build:
-      context: ./data-reader
-      dockerfile: DockerfileDataReader
-    networks:
-      microservice-network:
-        aliases:
-          - data-reader-service
+  # redis:
+  #   image: "redis:alpine"
+  #   ports:
+  #     - "6379:6379"
 
-  compute-service:
-    build:
-      context: ./compute
-      dockerfile: DockerfileCompute
+  reader:
+    build: 
+      context: ./ 
+      dockerfile: ./Dockerfile/Dockerfile_readerService
+    volumes:
+        - ./data:/app/data
     networks:
-      microservice-network:
-        aliases:
-          - compute-service
-    depends_on:
-      - data-reader-service
+      - microservice-network
 
-  result-formatter-service:
-    build:
-      context: ./result-formatter
-      dockerfile: DockerfileFormatter
+  compute:
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile/Dockerfile_computeService
     networks:
-      microservice-network:
-        aliases:
-          - result-formatter-service
-    depends_on:
-      - compute-service
+      - microservice-network
+
+  ochestrator:
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile/Dockerfile_orchestratorService
     ports:
-      - "8000:8082"
+      - "8000:8000"
+    networks:
+      - microservice-network
 
 networks:
   microservice-network:
