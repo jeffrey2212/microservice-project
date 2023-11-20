@@ -27,18 +27,18 @@ cd microservice-project
 ### Running the Application
 1. Build the Docker images:
 ```
-docker-compose build
+docker compose build
 ``` 
 2. Run the services:
 ```
-docker-compose up
+docker compose up -d
 ```
 
 
 ### Usage
 Send a request to the orchestrator service to initiate the process:
 ```
-curl -X POST http://localhost:8000/
+curl -X GET http://localhost:8000/
 ```
 
 ## Architecture
